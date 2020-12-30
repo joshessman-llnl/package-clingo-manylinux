@@ -14,14 +14,14 @@ function repair_wheel {
 for PYBIN in /opt/python/*/bin; do
     # Requires Py3.6 or greater - on the docker image 3.5 is cp35-cp35m
     if ! [[ ${PYBIN} =~ 35 ]] ; then
-        # export Python_ROOT_DIR=${PYBIN}/..
-        # cp clingo/setup.py setup.py.old
-        # sed -i "/CLINGO_REQUIRE_PYTHON=ON',/a \                 '-DPython_ROOT_DIR=${Python_ROOT_DIR}'," clingo/setup.py
+        export Python_ROOT_DIR="/opt/_internal/cpython-3.6.12"
+        cp clingo/setup.py setup.py.old
+        sed -i "/CLINGO_REQUIRE_PYTHON=ON',/a \                 '-DPython_ROOT_DIR=${Python_ROOT_DIR}'," clingo/setup.py
         # sed -i "/CLINGO_REQUIRE_PYTHON=ON',/a \                 '-DPYTHON_EXECUTABLE=${PYBIN}/python'," clingo/setup.py
         # sed -i "/CLINGO_REQUIRE_PYTHON=ON',/a \                 '-DPYTHON_INCLUDE_DIR=${PYBIN}/../include/python*'," clingo/setup.py
         "${PYBIN}/pip" wheel ./clingo/ --no-deps -w wheelhouse/
-        # rm clingo/setup.py
-        # mv setup.py.old clingo/setup.py
+        rm clingo/setup.py
+        mv setup.py.old clingo/setup.py
     fi
 done
 
