@@ -17,6 +17,8 @@ for PYBIN in /opt/python/*/bin; do
         export Python_ROOT_DIR=${PYBIN}/..
         cp clingo/setup.py setup.py.old
         sed -i "/CLINGO_REQUIRE_PYTHON=ON',/a \                 '-DPython_ROOT_DIR=${Python_ROOT_DIR}'," clingo/setup.py
+        sed -i "/CLINGO_REQUIRE_PYTHON=ON',/a \                 '-DPYTHON_EXECUTABLE=${PYBIN}/python'," clingo/setup.py
+        sed -i "/CLINGO_REQUIRE_PYTHON=ON',/a \                 '-DPYTHON_INCLUDE_DIR=${PYBIN}/../include/python*'," clingo/setup.py
         "${PYBIN}/pip" wheel ./clingo/ --no-deps -w wheelhouse/
         rm clingo/setup.py
         mv setup.py.old clingo/setup.py
