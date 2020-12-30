@@ -23,9 +23,15 @@ for PYBIN in /opt/python/*/bin; do
     ls -l ${PYBIN}/../lib || true
     echo "------------"
     if ! [[ ${PYBIN} =~ 35 ]] ; then
-        export PYTHON_INCLUDE_DIR=${PYBIN}/../include
+        export PYTHON_INCLUDE_DIR=${PYBIN}/../include/python*
         export PYTHON_LIBRARY=${PYBIN}/../lib/python*/libpython*.a
         export PYTHON_EXECUTABLE=${PYBIN}/python
+        echo $PYTHON_INCLUDE_DIR
+        file $PYTHON_INCLUDE_DIR
+        echo $PYTHON_LIBRARY
+        file $PYTHON_LIBRARY
+        echo $PYTHON_EXECUTABLE
+        file $PYTHON_EXECUTABLE
         "${PYBIN}/pip" wheel ./clingo/ --no-deps -w wheelhouse/
     fi
 done
