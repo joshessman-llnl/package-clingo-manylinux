@@ -13,6 +13,10 @@ function repair_wheel {
 # Compile wheels
 for PYBIN in /opt/python/*/bin; do
     # Requires Py3.6 or greater - on the docker image 3.5 is cp35-cp35m
+    ls -l /opt/python/${PYBIN} || true
+    ls -l /opt/python/${PYBIN}/bin || true
+    ls -l /opt/python/${PYBIN}/include || true
+    ls -l /opt/python/${PYBIN}/lib || true
     if ! [[ ${PYBIN} =~ 35 ]] ; then
         "${PYBIN}/pip" wheel ./clingo/ --no-deps -w wheelhouse/
     fi
