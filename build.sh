@@ -16,7 +16,10 @@ for PYBIN in /opt/python/*/bin; do
     if ! [[ ${PYBIN} =~ 35 ]] ; then
         export Python_ROOT_DIR=${PYBIN}/..
         export Python_INCLUDE_DIR=${PYBIN}/../include/python*
-        export Python_LIBRARY=${PYBIN}/../lib/python*/libpython*.so
+        ls -l ${PYBIN}/../lib/python*
+        echo "-------------"
+        ls -l ${PYBIN}/../lib/
+        # export Python_LIBRARY=${PYBIN}/../lib/python*/libpython*.so
         export Python_EXECUTABLE=${PYBIN}/python
         echo $Python_INCLUDE_DIR
         file $Python_INCLUDE_DIR
