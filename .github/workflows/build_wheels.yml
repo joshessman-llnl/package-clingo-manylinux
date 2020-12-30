@@ -14,7 +14,7 @@ jobs:
       options: --user=root # Will be installing packages
     steps:
     - name: Install clingo dependencies
-      run: yum install re2c bison
+      run: yum install -y re2c bison
     - name: Checkout repo
       uses: actions/checkout@v2
       with:
