@@ -7,6 +7,8 @@ on:
 jobs:
   build_package_amd64:
     runs-on: ubuntu-latest
+    env:
+      PLAT: manylinux2014_x86_64
     container:
       image: quay.io/pypa/manylinux2014_x86_64
       options: --user=root # Will be installing packages
@@ -17,3 +19,5 @@ jobs:
       uses: actions/checkout@v2
       with:
         submodules: recursive
+    - name: Build wheels
+      run: bash build.sh
