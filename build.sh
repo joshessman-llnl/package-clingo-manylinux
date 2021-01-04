@@ -1,6 +1,8 @@
 #!/bin/bash
 set -e -u -x
 
+version=17
+
 function repair_wheel {
     wheel="$1"
     if ! auditwheel show "$wheel"; then
@@ -23,7 +25,11 @@ function rename_wheel {
     rm -rf rename_wheel
 }
 
+# Apply build system patches
 cd clingo && git apply ../dynamic_lookup.patch && cd ..
+
+# Bump the version number
+sed -i "s/post16/post$version/g" clingo/setup.py
 
 # Compile wheels
 for PYBIN in /opt/python/*/bin; do
