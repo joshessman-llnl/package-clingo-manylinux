@@ -10,11 +10,12 @@ function repair_wheel {
     fi
 }
 
+cd clingo && git apply ../dynamic_lookup.patch && cd ..
+
 # Compile wheels
 for PYBIN in /opt/python/*/bin; do
     # Requires Py3.6 or greater - on the docker image 3.5 is cp35-cp35m
     if ! [[ ${PYBIN} =~ 35 ]] ; then
-        cd clingo && git apply ../dynamic_lookup.patch && cd ..
         "${PYBIN}/pip" wheel ./clingo/ --no-deps -w wheelhouse/
     fi
 done
