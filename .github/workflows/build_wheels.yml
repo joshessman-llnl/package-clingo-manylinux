@@ -21,3 +21,8 @@ jobs:
         submodules: recursive
     - name: Build wheels
       run: bash build.sh
+    - name: Upload manylinux wheels
+      uses: actions/upload-artifact@v2
+      with:
+        name: manylinux-wheels
+        path: wheelhouse/*manylinux*.whl
