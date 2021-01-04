@@ -28,6 +28,32 @@ index f11e6e2..b70c952 100644
      endforeach()
  endif()
 -
+diff --git a/app/pyclingo/CMakeLists.txt b/app/pyclingo/CMakeLists.txt
+index 22e50f1..056d63b 100644
+--- a/app/pyclingo/CMakeLists.txt
++++ b/app/pyclingo/CMakeLists.txt
+@@ -32,7 +32,7 @@ if (NOT PYCLINGO_SUFFIX)
+ endif()
+ 
+ add_library(pyclingo MODULE ${source})
+-if (PYCLINGO_DYNAMIC_LOOKUP)
++if (PYCLINGO_DYNAMIC_LOOKUP AND APPLE)
+     set_property(TARGET pyclingo PROPERTY LINK_FLAGS "-undefined dynamic_lookup")
+ endif()
+ target_link_libraries(pyclingo PRIVATE libpyclingom)
+diff --git a/app/pyclingo_cffi/CMakeLists.txt b/app/pyclingo_cffi/CMakeLists.txt
+index cd7c8c4..174785e 100644
+--- a/app/pyclingo_cffi/CMakeLists.txt
++++ b/app/pyclingo_cffi/CMakeLists.txt
+@@ -33,7 +33,7 @@ endif()
+ 
+ add_library(pyclingo MODULE ${source})
+ target_link_libraries(pyclingo PRIVATE libclingo Python::Python)
+-if (PYCLINGO_DYNAMIC_LOOKUP)
++if (PYCLINGO_DYNAMIC_LOOKUP AND APPLE)
+     set_property(TARGET pyclingo PROPERTY LINK_FLAGS "-undefined dynamic_lookup")
+ endif()
+ set_target_properties(pyclingo PROPERTIES
 diff --git a/setup.py b/setup.py
 index 76f4582..4616110 100644
 --- a/setup.py
