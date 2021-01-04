@@ -1,5 +1,5 @@
 diff --git a/CMakeLists.txt b/CMakeLists.txt
-index f11e6e2..f754f30 100644
+index f11e6e2..4808e32 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
 @@ -121,13 +121,19 @@ if(CMAKE_VERSION VERSION_GREATER "3.15.0" OR CMAKE_VERSION VERSION_EQUAL "3.15.0
@@ -18,7 +18,7 @@ index f11e6e2..f754f30 100644
 +        set(Python_Development_FOUND ON)
 +        add_library(Python::Python INTERFACE IMPORTED)
 +        add_library(Python::Module INTERFACE IMPORTED)
-+        set_target_properties(Python::Python Python::Module PROPERTIES INTERFACE_INCLUDE_DIRECTORIES "${Python_INCLUDE_DIRS} ${PYTHON_INCLUDE_DIR} ${Python_INCLUDE_DIR}")
++        set_target_properties(Python::Python Python::Module PROPERTIES INTERFACE_INCLUDE_DIRECTORIES ${Python_INCLUDE_DIRS} ${PYTHON_INCLUDE_DIR} ${Python_INCLUDE_DIR})
 +    endif()
  else()
      find_package(PythonInterp)
