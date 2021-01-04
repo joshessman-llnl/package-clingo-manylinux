@@ -11,10 +11,10 @@ jobs:
       PLAT: manylinux2014_x86_64
     container:
       image: quay.io/pypa/manylinux2014_x86_64
-      # options: --user=root # Will be installing packages
+      options: --user=root # Will be installing packages
     steps:
-    # - name: Install clingo dependencies
-      # run: yum install -y re2c bison
+    - name: Install clingo dependencies
+      run: yum install -y re2c bison
     - name: Checkout repo
       uses: actions/checkout@v2
       with:
