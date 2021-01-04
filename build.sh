@@ -18,7 +18,7 @@ function rename_wheel {
     rm "$wheel"
     sed -i 's/Name: clingo-cffi/Name: clingo-cffi-wheel/g' rename_wheel/clingo_cffi*/clingo_cffi*/METADATA
     $interp -m wheel pack rename_wheel/clingo_cffi*
-    mv "$wheel" "$(echo $wheel | sed 's/clingo_cffi/clingo_cffi_wheel/g')"
+    mv "$(basename $wheel)" "$(echo $wheel | sed 's/clingo_cffi/clingo_cffi_wheel/g')"
     rm -rf rename_wheel
 }
 
