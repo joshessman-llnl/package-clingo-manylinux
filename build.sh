@@ -30,7 +30,7 @@ for PYBIN in /opt/python/*/bin; do
     if ! [[ ${PYBIN} =~ 35 ]] ; then
         "${PYBIN}/pip" wheel ./clingo/ --no-deps -w wheelhouse/
         just_built_wheel=$(ls -Art wheelhouse/ | tail -n 1)
-        rename_wheel "${PYBIN}/python" "$just_built_wheel"
+        rename_wheel "${PYBIN}/python" "wheelhouse/$just_built_wheel"
     fi
 done
 
