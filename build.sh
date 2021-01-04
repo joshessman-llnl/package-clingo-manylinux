@@ -7,6 +7,7 @@ function repair_wheel {
         echo "Skipping non-platform wheel $wheel"
     else
         auditwheel repair "$wheel" --plat "$PLAT" -w wheelhouse/
+        rm -f "$wheel"
     fi
 }
 
