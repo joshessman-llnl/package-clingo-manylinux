@@ -26,7 +26,7 @@ jobs:
         docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
     - name: Build wheels
       run: |
-        docker run --rm quay.io/pypa/${{ matrix.image }} "yum install -y re2c bison && bash build.sh"
+        docker run --rm quay.io/pypa/${{ matrix.image }} bash -c "yum install -y re2c bison && bash build.sh"
     - name: Publish package to TestPyPI
       uses: pypa/gh-action-pypi-publish@master
       with:
