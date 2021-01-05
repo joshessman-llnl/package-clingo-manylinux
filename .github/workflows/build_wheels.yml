@@ -26,7 +26,7 @@ jobs:
         docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
     - name: Build wheels
       run: |
-        docker run --rm --workdir /github/workspace -v $GITHUB_WORKSPACE:/"/github/workspace" quay.io/pypa/${{ matrix.image }} bash -c "bash build.sh"
+        docker run --rm -e PLAT --workdir /github/workspace -v $GITHUB_WORKSPACE:/"/github/workspace" quay.io/pypa/${{ matrix.image }} bash -c "bash build.sh"
     - name: Publish package to TestPyPI
       uses: pypa/gh-action-pypi-publish@master
       with:
