@@ -13,29 +13,20 @@ jobs:
       matrix:
         image: [manylinux2014_x86_64, manylinux2014_ppc64le]
     steps:
-    - name: Set up QEMU
-      run: |
-        docker run --rm --privileged multiarch/qemu-user-static:register --reset
     - name: Checkout repo
       uses: actions/checkout@v2
       with:
         submodules: recursive
-    - name: Build x86 wheels
-      if: ${{ matrix.image == 'manylinux2014_x86_64' }}
-      uses: docker://quay.io/pypa/manylinux2014_x86_64
-      with:
-        args: >
-          bash -c
-          "yum install -y re2c bison &&
-          bash build.sh"
-    - name: Build PPC wheels
-      if: ${{ matrix.image == 'manylinux2014_ppc64le' }}
-      uses: docker://quay.io/pypa/manylinux2014_ppc64le
-      with:
-        args: >
-          bash -c
-          "yum install -y re2c bison &&
-          bash build.sh"
+    - name: Pull images
+      run: |
+        docker pull multiarch/qemu-user-static
+        docker pull quay.io/pypa/${{ matrix.image }}:latest
+    - name: Set up QEMU
+      run: |
+        docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
+    - name: Build wheels
+      run: |
+        docker run --rm quay.io/pypa/${{ matrix.image }} "yum install -y re2c bison && bash build.sh"
     - name: Publish package to TestPyPI
       uses: pypa/gh-action-pypi-publish@master
       with:
