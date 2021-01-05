@@ -21,7 +21,11 @@ jobs:
       uses: actions/checkout@v2
       with:
         submodules: recursive
-    - uses: docker://quay.io/pypa/${{ matrix.image }}
+    - name: Build wheels
+      - if: matrix.image == 'manylinux2014_x86_64'
+        uses: docker://quay.io/pypa/manylinux2014_x86_64
+      - if: matrix.image == 'manylinux2014_ppc64le'
+        uses: docker://quay.io/pypa/manylinux2014_ppc64le
       with:
         args: >
           bash -c
