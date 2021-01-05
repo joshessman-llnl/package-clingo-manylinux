@@ -21,11 +21,17 @@ jobs:
       uses: actions/checkout@v2
       with:
         submodules: recursive
-    - name: Build wheels
-      - if: matrix.image == 'manylinux2014_x86_64'
-        uses: docker://quay.io/pypa/manylinux2014_x86_64
-      - if: matrix.image == 'manylinux2014_ppc64le'
-        uses: docker://quay.io/pypa/manylinux2014_ppc64le
+    - name: Build x86 wheels
+      if: ${{ matrix.image }} == 'manylinux2014_x86_64'
+      uses: docker://quay.io/pypa/manylinux2014_x86_64
+      with:
+        args: >
+          bash -c
+          "yum install -y re2c bison &&
+          bash build.sh"
+    - name: Build PPC wheels
+      if: ${{ matrix.image }} == 'manylinux2014_ppc64le'
+      uses: docker://quay.io/pypa/manylinux2014_ppc64le
       with:
         args: >
           bash -c
