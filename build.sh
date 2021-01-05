@@ -25,6 +25,17 @@ function rename_wheel {
     rm -rf rename_wheel
 }
 
+# Install re2c
+arch=$(uname -m)
+if [[ "$arch" == "ppc64le" ]]; then
+    # Build from source
+    curl -LJO https://github.com/skvadrik/re2c/archive/2.0.3.tar.gz
+    tar xzvf re2c*
+    cd re2c* && mkdir .build && cd .build && cmake .. && cmake --build . && make -j8 && make install
+else
+    yum install -y re2c bison
+fi
+
 # Apply build system patches
 cd clingo && git apply ../dynamic_lookup.patch && cd ..
 
