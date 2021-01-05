@@ -30,8 +30,8 @@ arch=$(uname -m)
 if [[ "$arch" == "ppc64le" ]]; then
     # Build from source
     curl -LJO https://github.com/skvadrik/re2c/archive/2.0.3.tar.gz
-    tar xzvf re2c*
-    cd re2c* && mkdir .build && cd .build && cmake .. && cmake --build . && make -j8 && make install
+    tar xzf re2c*
+    cd re2c* && mkdir .build && cd .build && cmake .. && cmake --build . -j4 && cmake --install .
 else
     yum install -y re2c bison
 fi
