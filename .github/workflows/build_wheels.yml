@@ -14,15 +14,14 @@ jobs:
         image: [manylinux2014_x86_64, manylinux2014_ppc64le]
     steps:
     - name: Set up QEMU
-      uses: docker/setup-qemu-action@v1
-      with:
-        platforms: amd64, ppc64le
+      run: |
+        docker run --rm --privileged multiarch/qemu-user-static:register --reset
     - name: Checkout repo
       uses: actions/checkout@v2
       with:
         submodules: recursive
     - name: Build x86 wheels
-      if: ${{ matrix.image }} == 'manylinux2014_x86_64'
+      if: ${{ matrix.image == 'manylinux2014_x86_64' }}
       uses: docker://quay.io/pypa/manylinux2014_x86_64
       with:
         args: >
@@ -30,7 +29,7 @@ jobs:
           "yum install -y re2c bison &&
           bash build.sh"
     - name: Build PPC wheels
-      if: ${{ matrix.image }} == 'manylinux2014_ppc64le'
+      if: ${{ matrix.image == 'manylinux2014_ppc64le' }}
       uses: docker://quay.io/pypa/manylinux2014_ppc64le
       with:
         args: >
