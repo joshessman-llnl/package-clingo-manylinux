@@ -1,0 +1,26 @@
+name: test_action
+
+# Controls when the action will run. 
+on:
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - run: |
+        docker run --rm --privileged multiarch/qemu-user-static:register --reset
+
+    - uses: docker://multiarch/ubuntu-core:arm64-bionic
+      with:
+        args: 'uname -a'
+
+    - uses: docker://multiarch/ubuntu-core:arm64-bionic
+      with:
+        args: >
+          bash -c
+          "apt-get update &&
+          apt-get install -y python3.6 &&
+          python3.6 --version &&
+          python3.6 -c\"import platform; print(platform.machine())\""
