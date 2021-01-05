@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e -u -x
 
-version=18
+version=19
 
 function repair_wheel {
     wheel="$1"

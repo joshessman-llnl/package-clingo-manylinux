@@ -54,6 +54,14 @@ index cd7c8c4..174785e 100644
      set_property(TARGET pyclingo PROPERTY LINK_FLAGS "-undefined dynamic_lookup")
  endif()
  set_target_properties(pyclingo PROPERTIES
+diff --git a/pyproject.toml b/pyproject.toml
+index 7533528..962020e 100644
+--- a/pyproject.toml
++++ b/pyproject.toml
+@@ -1,2 +1,2 @@
+ [build-system]
+-requires = ["setuptools", "wheel", "scikit-build", "cmake", "ninja"]
++requires = ["setuptools", "wheel", "scikit-build", "ninja"]
 diff --git a/setup.py b/setup.py
 index 76f4582..4616110 100644
 --- a/setup.py
