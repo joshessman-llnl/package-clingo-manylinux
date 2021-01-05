@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e -u -x
 
-version=17
+version=18
 
 function repair_wheel {
     wheel="$1"
@@ -33,7 +33,7 @@ if [[ "$arch" == "ppc64le" ]]; then
     # Build from source
     curl -LJO https://github.com/skvadrik/re2c/archive/2.0.3.tar.gz
     tar xzf re2c*
-    cd re2c* && mkdir .build && cd .build && cmake .. && cmake --build . -j4 && cmake --install .
+    cd re2c* && mkdir .build && cd .build && cmake .. -DRE2C_BUILD_RE2GO=OFF && cmake --build . -j4 && cmake --install .
     popd
 else
     yum install -y re2c bison
