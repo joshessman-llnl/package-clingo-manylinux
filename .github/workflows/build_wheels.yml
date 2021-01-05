@@ -5,16 +5,16 @@ on:
     # No input required, possibly a version?
 
 jobs:
-  build_package_amd64:
+  build_packages:
     runs-on: ubuntu-latest
     env:
-      PLAT: manylinux2014_x86_64
+      PLAT: ${{ matrix.image }}
     container:
       image: quay.io/pypa/${{ matrix.image }}
       options: --user=root # Will be installing packages
     strategy:
       matrix:
-        image: [manylinux2014_x86_64, manylinux2014_ppc64le]
+        image: [manylinux2014_x86_64]
     steps:
     - name: Install clingo dependencies
       run: yum install -y re2c bison
