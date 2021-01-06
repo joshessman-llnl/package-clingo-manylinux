@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e -u -x
 
-version=19
+version=20
 
 function repair_wheel {
     wheel="$1"
@@ -11,18 +11,6 @@ function repair_wheel {
         auditwheel repair "$wheel" --plat "$PLAT" -w wheelhouse/
         rm -f "$wheel"
     fi
-}
-
-# Temporary, for testing purposes only
-function rename_wheel {
-    interp="$1"
-    wheel="$2"
-    $interp -m wheel unpack --dest rename_wheel "$wheel"
-    rm "$wheel"
-    sed -i 's/Name: clingo-cffi/Name: clingo-cffi-wheel/g' rename_wheel/clingo_cffi*/clingo_cffi*/METADATA
-    $interp -m wheel pack rename_wheel/clingo_cffi*
-    mv "$(basename $wheel)" "$(echo $wheel | sed 's/clingo_cffi/clingo_cffi_wheel/g')"
-    rm -rf rename_wheel
 }
 
 # Install re2c
@@ -50,8 +38,6 @@ for PYBIN in /opt/python/*/bin; do
     # Requires Py3.6 or greater - on the docker image 3.5 is cp35-cp35m
     if ! [[ ${PYBIN} =~ 35 ]] ; then
         "${PYBIN}/pip" wheel ./clingo/ --no-deps -w wheelhouse/
-        just_built_wheel=$(ls -Art wheelhouse/ | tail -n 1)
-        rename_wheel "${PYBIN}/python" "wheelhouse/$just_built_wheel"
     fi
 done
 
