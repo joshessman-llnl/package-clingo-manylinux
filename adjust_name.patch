@@ -1,0 +1,23 @@
+diff --git a/pyproject.toml b/pyproject.toml
+index 7533528..962020e 100644
+--- a/pyproject.toml
++++ b/pyproject.toml
+@@ -1,2 +1,2 @@
+ [build-system]
+-requires = ["setuptools", "wheel", "scikit-build", "cmake", "ninja"]
++requires = ["setuptools", "wheel", "scikit-build", "ninja"]
+diff --git a/setup.py b/setup.py
+index e18f943..2fe3fdf 100644
+--- a/setup.py
++++ b/setup.py
+@@ -7,8 +7,8 @@ if not site.ENABLE_USER_SITE and "--user" in sys.argv[1:]:
+     site.ENABLE_USER_SITE = True
+ 
+ setup(
+-    version = '5.5.0',
+-    name = 'clingo-cffi',
++    version = '5.5.0post21',
++    name = 'clingo-cffi-wheel',
+     description = 'CFFI-based bindings to the clingo solver.',
+     long_description = dedent('''\
+         This package provides CFFI-based bindings to the clingo solver.

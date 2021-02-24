@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e -u -x
 
-version=20
+version=21
 
 function repair_wheel {
     wheel="$1"
@@ -28,10 +28,10 @@ else
 fi
 
 # Apply build system patches
-cd clingo && git apply ../dynamic_lookup.patch && cd ..
+cd clingo && git apply ../adjust_name.patch && cd ..
 
 # Bump the version number
-sed -i "s/post16/post$version/g" clingo/setup.py
+sed -i "s/post21/post$version/g" clingo/setup.py
 
 # Compile wheels
 for PYBIN in /opt/python/*/bin; do
